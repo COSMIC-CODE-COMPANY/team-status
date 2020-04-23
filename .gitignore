@@ -1,12 +1,9 @@
 node_modules
 build
-dist/
-dist
+/dist
 npm-debug.log
 .env
 .DS_Store
-
-# NodeJS specific #
 .nyc_output/
 coverage/
 node_modules/
@@ -15,3 +12,4 @@ package-lock.json
 test/*.log
 .env
 .DS_Store
+dist/assets/app/bundle.js
