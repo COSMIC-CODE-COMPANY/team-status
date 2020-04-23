@@ -45,7 +45,6 @@ const App = () => {
       console.log(`Doesn't prefer Dark Mode`);
       updateThemeState({ type: 'light' });
     }
-
   };
 
   useEffect(() => {
