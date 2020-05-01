@@ -25,17 +25,11 @@ function getGroupNames(groups: Group[]): { id: number; name: string }[] {
 }
 
 const GroupSelect = (props: Props) => {
-  const [selectedGroup, updateSelectedGroup] = useState('All Groups');
-
-  const selected = useSelectedGroupContext();
+  const selectedGroup = useSelectedGroupContext();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const value = event.target.value as string;
-    console.log(selected);
-    selected.updateSelectedGroup(value);
-    console.log(selected);
-    console.log('hello');
-    // updateSelectedGroup(value);
+    selectedGroup.updateSelectedGroup(value);
     props.filter(value);
   };
 
@@ -57,7 +51,7 @@ const GroupSelect = (props: Props) => {
   return (
     <FormControl fullWidth size='small'>
       <Select
-        value={selected.selectedGroup || 'All Groups'}
+        value={selectedGroup.selectedGroup || 'All Groups'}
         onChange={handleChange}
       >
         {addAllGroup(props.groups).map((group) => (

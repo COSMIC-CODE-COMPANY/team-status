@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Box, Container } from '@material-ui/core';
 import GroupSelect from './GroupSelect';
 import { StatusCounts, Status } from './StatusCount';
@@ -70,11 +70,11 @@ const AgentSummary = () => {
     setFormattedUsers([...usersTemp]);
   };
 
-  const filterUsers = async (e?: string) => {
+  const filterUsers = async () => {
     // console.log('FILTERING USERS USERS', filteredUsers)
     let fUsers: User[] = [];
     if (formattedUsers) {
-      const selectedGroupString = selectedGroup.selectedGroup; // e;
+      const selectedGroupString = selectedGroup.selectedGroup;
       if (selectedGroupString === 'All Groups' || !selectedGroupString) {
         fUsers = [...formattedUsers];
       } else {

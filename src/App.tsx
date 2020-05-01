@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, ReactElement } from 'react';
-import { CssBaseline, Container } from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Theme } from './Theme';
@@ -12,7 +12,6 @@ import {
   CurrentUserContext,
   AllUsersContext,
   GroupsContext,
-  selectedGroupContext,
   useSelectedGroupContext,
   SelectedGroupProvider,
 } from './context';
@@ -40,7 +39,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(zd.currentUser);
   const [allUsers, setAllUsers] = useState<User[] | null>(zd.users);
   const [groups, setGroups] = useState<Group[] | null>(zd.groups);
-  const groupContext = useSelectedGroupContext();
+
   const updateTheme = (): void => {
     if (prefersDarkMode) {
       console.log(`Prefers Dark Mode`);
@@ -62,7 +61,6 @@ const App = () => {
     setGroups(() => zd.groups);
   });
 
-  console.log(groupContext);
   let content: ReactElement = <div>Loading...</div>;
   if (!isLoading) {
     content = (
