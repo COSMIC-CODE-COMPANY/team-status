@@ -1,1 +1,2 @@
-export * from './ZendeskContext'
+export * from './ZendeskContext';
+export * from './selectedGroupContext';

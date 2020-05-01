@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import * as Types from "../Types";
+import * as Types from '../Types';
+import { useSelectedGroupContext } from '../context';
+
 type ZendeskClient = any;
 declare let ZAFClient: ZendeskClient;
 
@@ -22,6 +24,7 @@ const useZendesk = (callback: any) => {
   const [users, setUsers] = useState<Types.User[] | null>(null);
   const [appSettings, setAppSettings] = useState();
   const [appContext, setAppContext] = useState();
+  const selectedGroup = useSelectedGroupContext();
 
   useEffect(() => {
     if (!client) {
@@ -29,22 +32,22 @@ const useZendesk = (callback: any) => {
     }
     getCurrentUser();
     startListening(callback);
-    getGroups()
-    getUsers()
-    getAppContext()
-    getAppSettings()
+    getGroups();
+    getUsers();
+    getAppContext();
+    getAppSettings();
     timer = setInterval(() => {
-      console.log('Tick')
-      getUsers()
-    }, 30000)
-  }, [])
+      console.log('Tick');
+      getUsers();
+    }, 30000);
+  }, []);
 
   const startTimer = () => {
     timer = setInterval(() => {
-      console.log('Tick')
-      getUsers()
-    }, 30000)
-  }
+      console.log('Tick');
+      getUsers();
+    }, 30000);
+  };
 
   const getCurrentUser = async () => {
     const getAllAgentsPath = '/api/v2/users/me.json';
@@ -54,18 +57,18 @@ const useZendesk = (callback: any) => {
       dataType: 'json',
     };
     const response = await client.request(settings);
-    setCurrentUser(() => response.user)
-  }
+    setCurrentUser(() => response.user);
+  };
 
   const startListening = (callback: (event: Event) => void) => {
     zendeskEvents.forEach((zdEvent) => {
       const event = new Event(zdEvent);
       client.on(zdEvent, () => {
         // console.log('ZENDESK EVENT:', event)
-        callback(event)
-      })
-    })
-  }
+        callback(event);
+      });
+    });
+  };
 
   const getGroups = async () => {
     try {
@@ -76,19 +79,20 @@ const useZendesk = (callback: any) => {
         dataType: 'json',
       };
       const response = await client.request(settings);
-      setGroups(() => response.groups)
+      setGroups(() => response.groups);
     } catch (err) {
       console.error('Error getting groups', err);
     }
-  }
+  };
 
-  const getUsers = async (groupID?: number): Promise<any> => {
+  const getUsers = async (): Promise<any> => {
+    console.log(selectedGroup.selectedGroup);
     try {
       let getAgents = '';
-      if (!groupID) {
+      if (!selectedGroup.selectedGroup) {
         getAgents = '/api/v2/users.json?role[]=admin&role[]=agent';
       } else {
-        getAgents = `/api/v2/groups/${groupID}/users.json`;
+        getAgents = `/api/v2/groups/${selectedGroup}/users.json`;
       }
       const settings = {
         url: getAgents,
@@ -96,20 +100,23 @@ const useZendesk = (callback: any) => {
         dataType: 'json',
       };
       const response = await client.request(settings);
-      setUsers(() => response.users)
+      setUsers(() => response.users);
     } catch (err) {
       console.error('Error getting users', err);
     }
-  }
+  };
 
   // `${status} | ${new Date().toISOString()}`
-  const updateUserStatus = async function (userID: number, status: string): Promise<number> {
+  const updateUserStatus = async function (
+    userID: number,
+    status: string
+  ): Promise<number> {
     try {
       const userPath = `/api/v2/users/${userID}.json`;
       const userUpdateObject = {
         user: {
           user_fields: {
-            ccc_agent_status: status,
+            ccc_agent_status: `${status} | ${new Date().toISOString()}`,
           },
         },
       };
@@ -123,29 +130,30 @@ const useZendesk = (callback: any) => {
         client = ZAFClient.init();
       }
       const response = await client.request(settings);
+      getUsers();
       return 0;
     } catch (err) {
       console.error('Error updating user status', err);
       return 1;
     }
-  }
+  };
 
   const openURL = (type: string, id: number): void => {
     if (!client) {
       client = ZAFClient.init();
     }
     client.invoke('routeTo', type, id);
-  }
+  };
 
   const getAppSettings = async () => {
     const data = await client.metadata();
-    setAppSettings(() => data)
-  }
+    setAppSettings(() => data);
+  };
 
   const getAppContext = async () => {
     const data = await client.context();
-    setAppContext(() => data)
-  }
+    setAppContext(() => data);
+  };
 
   return {
     currentUser,
@@ -155,8 +163,8 @@ const useZendesk = (callback: any) => {
     appContext,
     updateUserStatus,
     openURL,
-    startTimer
-  }
-}
+    startTimer,
+  };
+};
 
-export { useZendesk }
+export { useZendesk };

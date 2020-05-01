@@ -5,7 +5,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { statusListMock } from '../../mock/data';
 
 interface Props {
+  userID: number;
   selected?: string;
+  updateStatus: any;
 }
 
 const StatusSelect = (props: Props) => {
@@ -23,11 +25,17 @@ const StatusSelect = (props: Props) => {
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const newStatus = event.target.value as string;
     setSelectedStatus(newStatus);
+    props.updateStatus(props.userID, newStatus);
   };
 
   return (
     <FormControl color='primary' fullWidth>
-      <Select value={selectedStatus} onChange={handleChange} autoWidth variant='outlined'>
+      <Select
+        value={selectedStatus}
+        onChange={handleChange}
+        autoWidth
+        variant='outlined'
+      >
         {statusList().map((status) => (
           <MenuItem value={status.name} key={status.id}>
             {status.name}

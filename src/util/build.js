@@ -36,7 +36,7 @@ const requirements = {
 const enSettings = {
   app: {
     name: 'Status Tracker: A status app',
-    short_description: 'See all the times that matter to you.',
+    short_description: '',
     long_description: '',
     installation_instructions: '',
     parameters: {},

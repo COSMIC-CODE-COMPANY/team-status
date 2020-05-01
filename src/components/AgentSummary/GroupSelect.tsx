@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Group } from '../../Types';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { useSelectedGroupContext } from '../../context';
 
 interface Props {
   selected?: string | number;
@@ -26,9 +27,15 @@ function getGroupNames(groups: Group[]): { id: number; name: string }[] {
 const GroupSelect = (props: Props) => {
   const [selectedGroup, updateSelectedGroup] = useState('All Groups');
 
+  const selected = useSelectedGroupContext();
+
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const value = event.target.value as string;
-    updateSelectedGroup(value);
+    console.log(selected);
+    selected.updateSelectedGroup(value);
+    console.log(selected);
+    console.log('hello');
+    // updateSelectedGroup(value);
     props.filter(value);
   };
 
@@ -49,7 +56,10 @@ const GroupSelect = (props: Props) => {
 
   return (
     <FormControl fullWidth size='small'>
-      <Select value={selectedGroup} onChange={handleChange}>
+      <Select
+        value={selected.selectedGroup || 'All Groups'}
+        onChange={handleChange}
+      >
         {addAllGroup(props.groups).map((group) => (
           <MenuItem value={group.name} key={group.id}>
             {group.name}
