@@ -13,3 +13,4 @@ test/*.log
 .env
 .DS_Store
 dist/assets/app/bundle.js
+.sass-cache/
