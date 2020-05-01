@@ -1,6 +1,8 @@
+// This is needed when testing outside of Zendesk
 export const currentUserMock = {
   id: 405782502733,
-  url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
+  url:
+    'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
   name: 'Gene Henson',
   email: 'gene@cosmiccodecompany.com',
   created_at: '2020-03-22T20:02:24Z',
@@ -47,7 +49,8 @@ export const allUsers = {
   users: [
     {
       id: 405782502733,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
       name: 'Gene Henson',
       email: 'gene@cosmiccodecompany.com',
       created_at: '2020-03-22T20:02:24Z',
@@ -91,7 +94,8 @@ export const allUsers = {
     },
     {
       id: 407074284553,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407074284553.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407074284553.json',
       name: 'Roger Wilco II',
       email: 'genehenson@gmail.com',
       created_at: '2020-04-07T05:03:09Z',
@@ -135,7 +139,8 @@ export const allUsers = {
     },
     {
       id: 407180764533,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407180764533.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407180764533.json',
       name: 'test 1',
       email: 'test1@cosmiccode.co',
       created_at: '2020-04-08T17:22:43Z',
@@ -179,7 +184,8 @@ export const allUsers = {
     },
     {
       id: 407180780253,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407180780253.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407180780253.json',
       name: 'test 2',
       email: 'test2@cosmiccode.co',
       created_at: '2020-04-08T17:23:04Z',
@@ -223,7 +229,8 @@ export const allUsers = {
     },
     {
       id: 407226699954,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407226699954.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407226699954.json',
       name: 'Info',
       email: 'info@cosmiccode.co',
       created_at: '2020-04-08T17:23:48Z',
@@ -267,7 +274,8 @@ export const allUsers = {
     },
     {
       id: 4057825027312,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
       name: 'Gene Henson',
       email: 'gene@cosmiccodecompany.com',
       created_at: '2020-03-22T20:02:24Z',
@@ -311,7 +319,8 @@ export const allUsers = {
     },
     {
       id: 405782502123123,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
       name: 'Gene Henson',
       email: 'gene@cosmiccodecompany.com',
       created_at: '2020-03-22T20:02:24Z',
@@ -355,7 +364,8 @@ export const allUsers = {
     },
     {
       id: 4057825012314,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
       name: 'Gene Henson',
       email: 'gene@cosmiccodecompany.com',
       created_at: '2020-03-22T20:02:24Z',
@@ -399,7 +409,8 @@ export const allUsers = {
     },
     {
       id: 40578250214124,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
       name: 'Gene Henson',
       email: 'gene@cosmiccodecompany.com',
       created_at: '2020-03-22T20:02:24Z',
@@ -444,7 +455,8 @@ export const allUsers = {
   ],
   groups: [
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009239613.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009239613.json',
       id: 360009239613,
       name: 'Support',
       description: '',
@@ -454,7 +466,8 @@ export const allUsers = {
       updated_at: '2020-03-22T20:02:27Z',
     },
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562213.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562213.json',
       id: 360009562213,
       name: 'Test Group 1',
       description: '',
@@ -464,7 +477,8 @@ export const allUsers = {
       updated_at: '2020-04-09T01:27:26Z',
     },
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562233.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562233.json',
       id: 360009562233,
       name: 'Test Group 2',
       description: '',
@@ -474,7 +488,8 @@ export const allUsers = {
       updated_at: '2020-04-09T01:27:37Z',
     },
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562253.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562253.json',
       id: 360009562253,
       name: 'Test Group 3',
       description: '',
@@ -492,7 +507,8 @@ export const allUsers = {
 export const groups = {
   groups: [
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009239613.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009239613.json',
       id: 360009239613,
       name: 'Support',
       description: '',
@@ -500,10 +516,17 @@ export const groups = {
       deleted: false,
       created_at: '2020-03-22T20:02:24Z',
       updated_at: '2020-03-22T20:02:27Z',
-      user_ids: [405782502733, 407226699954, 407074284553, 407180764533, 407180780253],
+      user_ids: [
+        405782502733,
+        407226699954,
+        407074284553,
+        407180764533,
+        407180780253,
+      ],
     },
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562213.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562213.json',
       id: 360009562213,
       name: 'Test Group 1',
       description: '',
@@ -514,7 +537,8 @@ export const groups = {
       user_ids: [405782502733, 407226699954],
     },
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562233.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562233.json',
       id: 360009562233,
       name: 'Test Group 2',
       description: '',
@@ -525,7 +549,8 @@ export const groups = {
       user_ids: [407074284553, 407180764533],
     },
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562253.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009562253.json',
       id: 360009562253,
       name: 'Test Group 3',
       description: '',
@@ -536,7 +561,8 @@ export const groups = {
       user_ids: [407180780253],
     },
     {
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009239613.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/groups/360009239613.json',
       id: 3600092392342,
       name: 'Support-dummy',
       description: '',
@@ -550,7 +576,8 @@ export const groups = {
   users: [
     {
       id: 405782502733,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/405782502733.json',
       name: 'Gene Henson',
       email: 'gene@cosmiccodecompany.com',
       created_at: '2020-03-22T20:02:24Z',
@@ -594,7 +621,8 @@ export const groups = {
     },
     {
       id: 407226699954,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407226699954.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407226699954.json',
       name: 'Info',
       email: 'info@cosmiccode.co',
       created_at: '2020-04-08T17:23:48Z',
@@ -638,7 +666,8 @@ export const groups = {
     },
     {
       id: 407074284553,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407074284553.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407074284553.json',
       name: 'Roger Wilco II',
       email: 'genehenson@gmail.com',
       created_at: '2020-04-07T05:03:09Z',
@@ -682,7 +711,8 @@ export const groups = {
     },
     {
       id: 407180764533,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407180764533.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407180764533.json',
       name: 'test 1',
       email: 'test1@cosmiccode.co',
       created_at: '2020-04-08T17:22:43Z',
@@ -726,7 +756,8 @@ export const groups = {
     },
     {
       id: 407180780253,
-      url: 'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407180780253.json',
+      url:
+        'https://d3v-cosmiccodecompany.zendesk.com/api/v2/users/407180780253.json',
       name: 'test 2',
       email: 'test2@cosmiccode.co',
       created_at: '2020-04-08T17:23:04Z',
