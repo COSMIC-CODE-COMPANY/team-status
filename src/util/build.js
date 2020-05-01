@@ -1,3 +1,7 @@
+// This builds the Zendesk manifest and translation files
+// https://developer.zendesk.com/apps/docs/developer-guide/manifest
+// https://developer.zendesk.com/apps/docs/developer-guide/setup#file-requirements
+
 const manifestSettings = {
   name: 'Status Tracker: A status app',
   author: {

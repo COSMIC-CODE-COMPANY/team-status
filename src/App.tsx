@@ -12,21 +12,11 @@ import {
   CurrentUserContext,
   AllUsersContext,
   GroupsContext,
-  useSelectedGroupContext,
   SelectedGroupProvider,
 } from './context';
 
 // Types
-import { ThemeState, ThemeType, User, Group } from './Types';
-
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-  },
-  container: {
-    padding: 0,
-  },
-});
+import { ThemeState, User, Group } from './Types';
 
 const App = () => {
   const zd = useZendesk((event: Event) => console.log(event));

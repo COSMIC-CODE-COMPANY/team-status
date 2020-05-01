@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { Group } from '../../Types';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
