@@ -19,6 +19,7 @@ const zendeskEvents = [
 const useZendesk = (callback: any) => {
   let client: ZendeskClient = null;
   let timer: NodeJS.Timer;
+  const timerInterval = 10000;
   const [currentUser, setCurrentUser] = useState<Types.User | null>(null);
   const [groups, setGroups] = useState<Types.Group[] | null>(null);
   const [users, setUsers] = useState<Types.User[] | null>(null);
@@ -37,18 +38,10 @@ const useZendesk = (callback: any) => {
     getUsers();
     getAppContext();
     getAppSettings();
-    timer = setInterval(() => {
-      console.log('Tick');
-      getUsers();
-    }, 30000);
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
-
-  const startTimer = () => {
-    timer = setInterval(() => {
-      console.log('Tick');
-      getUsers();
-    }, 30000);
-  };
 
   const getAppMetaData = () => {
     client.metadata().then(function (metadata: any) {
@@ -67,11 +60,22 @@ const useZendesk = (callback: any) => {
     setCurrentUser(() => response.user);
   };
 
+  const startTimer = () => {
+    getUsers();
+    timer = setInterval(() => {
+      console.log('Tick');
+      getUsers();
+    }, timerInterval);
+  };
+
+  const stopTimer = () => {
+    clearInterval(timer);
+  };
+
   const startListening = (callback: (event: Event) => void) => {
     zendeskEvents.forEach((zdEvent) => {
       const event = new Event(zdEvent);
       client.on(zdEvent, () => {
-        // console.log('ZENDESK EVENT:', event)
         callback(event);
       });
     });
@@ -93,7 +97,6 @@ const useZendesk = (callback: any) => {
   };
 
   const getUsers = async (): Promise<any> => {
-    console.log(selectedGroup.selectedGroup);
     try {
       let getAgents = '';
       if (!selectedGroup.selectedGroup) {
@@ -171,6 +174,7 @@ const useZendesk = (callback: any) => {
     updateUserStatus,
     openURL,
     startTimer,
+    stopTimer,
   };
 };
 

@@ -20,7 +20,25 @@ import {
 import { ThemeState, User, Group } from './Types';
 
 const App = () => {
-  const zd = useZendesk((event: Event) => console.log(event));
+  const handleZendeskEvents = (event: Event) => {
+    console.log(event);
+    switch (event.type) {
+      case 'app.registered':
+      case 'pane.activated':
+        console.log('Recieved pane or app activated');
+        zd.startTimer();
+        break;
+      case 'app.deactivated':
+      case 'pane.deactivated':
+        console.log('Recieved pane or app deactivated');
+        zd.stopTimer();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const zd = useZendesk(handleZendeskEvents);
   const pref = useMediaQuery('(prefers-color-scheme: dark)');
   const [themeState, updateThemeState] = useState<ThemeState>({
     type: undefined,
