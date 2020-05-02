@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { statusListMock } from '../../mock/data';
+import { useAppsettingsContext } from '../../context';
 
 interface Props {
   userID: number;
@@ -11,15 +11,32 @@ interface Props {
 }
 
 const StatusSelect = (props: Props) => {
+  const appSettings = useAppsettingsContext();
   const [selectedStatus, setSelectedStatus] = useState(props.selected);
+  const [statusList, setStatusList] = useState<string[]>(['chat', 'email']);
 
-  const statusList = (): { id: number; name: string }[] => {
-    const statusList = statusListMock;
-    const inList = statusList.some((status) => status.name === props.selected);
-    if (!inList && props.selected) {
-      statusList.push({ id: 1234567891, name: props.selected });
+  useEffect(() => {
+    if (
+      appSettings &&
+      appSettings.settings &&
+      appSettings.settings.statusList
+    ) {
+      setDefaultValues();
     }
-    return statusList;
+  }, [appSettings]);
+
+  const setDefaultValues = () => {
+    const defaultStatusList = appSettings.settings.statusList;
+    const statusArray: string[] = defaultStatusList
+      .split(',')
+      .map((item: string) => item.trim());
+    if (
+      props.selected &&
+      !statusArray.some((status) => status === props.selected)
+    ) {
+      statusArray.push(props.selected);
+    }
+    setStatusList(() => statusArray);
   };
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -36,9 +53,9 @@ const StatusSelect = (props: Props) => {
         autoWidth
         variant='outlined'
       >
-        {statusList().map((status) => (
-          <MenuItem value={status.name} key={status.id}>
-            {status.name}
+        {statusList.map((status, index) => (
+          <MenuItem value={status} key={status + index.toString()}>
+            {status}
           </MenuItem>
         ))}
       </Select>

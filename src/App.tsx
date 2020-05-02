@@ -13,6 +13,7 @@ import {
   AllUsersContext,
   GroupsContext,
   SelectedGroupProvider,
+  AppSettingsContext,
 } from './context';
 
 // Types
@@ -56,16 +57,18 @@ const App = () => {
     content = (
       <ThemeProvider theme={Theme(themeState)}>
         <CssBaseline />
-        <SelectedGroupProvider>
-          <CurrentUserContext.Provider value={currentUser}>
-            <CurrentUser updateStatus={zd.updateUserStatus} />
-          </CurrentUserContext.Provider>
-          <AllUsersContext.Provider value={allUsers}>
-            <GroupsContext.Provider value={groups}>
-              <AgentSummary />
-            </GroupsContext.Provider>
-          </AllUsersContext.Provider>
-        </SelectedGroupProvider>
+        <AppSettingsContext.Provider value={zd.appSettings}>
+          <SelectedGroupProvider>
+            <CurrentUserContext.Provider value={currentUser}>
+              <CurrentUser updateStatus={zd.updateUserStatus} />
+            </CurrentUserContext.Provider>
+            <AllUsersContext.Provider value={allUsers}>
+              <GroupsContext.Provider value={groups}>
+                <AgentSummary />
+              </GroupsContext.Provider>
+            </AllUsersContext.Provider>
+          </SelectedGroupProvider>
+        </AppSettingsContext.Provider>
       </ThemeProvider>
     );
   }

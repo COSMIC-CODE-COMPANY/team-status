@@ -30,6 +30,7 @@ const useZendesk = (callback: any) => {
     if (!client) {
       client = ZAFClient.init();
     }
+    getAppMetaData();
     getCurrentUser();
     startListening(callback);
     getGroups();
@@ -47,6 +48,12 @@ const useZendesk = (callback: any) => {
       console.log('Tick');
       getUsers();
     }, 30000);
+  };
+
+  const getAppMetaData = () => {
+    client.metadata().then(function (metadata: any) {
+      console.log(metadata.settings);
+    });
   };
 
   const getCurrentUser = async () => {

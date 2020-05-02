@@ -24,11 +24,17 @@ const useStyles = makeStyles({
 export function StatusCounts(props: Props) {
   const classes = useStyles();
   return (
-    <Grid container justify='flex-end' alignContent='space-around' alignItems='center' spacing={2}>
+    <Grid
+      container
+      justify='flex-end'
+      alignContent='space-around'
+      alignItems='center'
+      spacing={2}
+    >
       {props.statusCounts.map((statusCount) => (
         <Grid item key={statusCount.name + statusCount.count}>
           <Paper className={classes.statusBox} variant='outlined' square>
-            <Box component='span'>{statusCount.name}</Box>
+            <Box component='span'>{statusCount.name}:</Box>
             <Box component='span'>{statusCount.count}</Box>
           </Paper>
         </Grid>
