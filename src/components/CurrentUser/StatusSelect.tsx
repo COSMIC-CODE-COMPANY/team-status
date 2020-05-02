@@ -13,7 +13,13 @@ interface Props {
 const StatusSelect = (props: Props) => {
   const appSettings = useAppsettingsContext();
   const [selectedStatus, setSelectedStatus] = useState(props.selected);
-  const [statusList, setStatusList] = useState<string[]>(['chat', 'email']);
+  const [statusList, setStatusList] = useState<string[]>([
+    'Phone',
+    'Email',
+    'Chat',
+    'Lunch',
+    'Break',
+  ]);
 
   useEffect(() => {
     if (
@@ -36,6 +42,7 @@ const StatusSelect = (props: Props) => {
     ) {
       statusArray.push(props.selected);
     }
+    statusArray.sort();
     setStatusList(() => statusArray);
   };
 
