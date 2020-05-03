@@ -4,7 +4,13 @@ import AgentSummary from './components/AgentSummary/AgentSummary';
 
 // React Themeing
 import { ThemeProvider, DEFAULT_THEME } from '@zendeskgarden/react-theming';
-import { Chrome, Body, Content, Main } from '@zendeskgarden/react-chrome';
+import {
+  Chrome,
+  Body,
+  Content,
+  Main,
+  Header,
+} from '@zendeskgarden/react-chrome';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import { useZendesk } from './hooks';
 
@@ -52,44 +58,26 @@ const App = () => {
     setGroups(() => zd.groups);
   });
 
-  let content: ReactElement = <div>Loading...</div>;
-
-  if (!isLoading) {
-    content = (
-      <ThemeProvider theme={DEFAULT_THEME}>
-        <Chrome>
-          <Body>
-            <Content>
-              <AppSettingsContext.Provider value={zd.appSettings}>
-                <SelectedGroupProvider>
-                  <Grid gutters='sm'>
-                    <Row className='u-mv'>
-                      <CurrentUserContext.Provider value={currentUser}>
-                        <Col>
-                          <CurrentUser updateStatus={zd.updateUserStatus} />
-                        </Col>
-                      </CurrentUserContext.Provider>
-                    </Row>
-                    <Row>
-                      <AllUsersContext.Provider value={allUsers}>
-                        <GroupsContext.Provider value={groups}>
-                          <Col>
-                            <AgentSummary />
-                          </Col>
-                        </GroupsContext.Provider>
-                      </AllUsersContext.Provider>
-                    </Row>
-                  </Grid>
-                </SelectedGroupProvider>
-              </AppSettingsContext.Provider>
-            </Content>
-          </Body>
-        </Chrome>
-      </ThemeProvider>
-    );
-  }
-
-  return content;
+  return (
+    <ThemeProvider theme={DEFAULT_THEME}>
+      <AppSettingsContext.Provider value={zd.appSettings}>
+        <SelectedGroupProvider>
+          <CurrentUserContext.Provider value={currentUser}>
+            <Col>
+              <CurrentUser updateStatus={zd.updateUserStatus} />
+            </Col>
+          </CurrentUserContext.Provider>
+          <AllUsersContext.Provider value={allUsers}>
+            <GroupsContext.Provider value={groups}>
+              <Col>
+                <AgentSummary />
+              </Col>
+            </GroupsContext.Provider>
+          </AllUsersContext.Provider>
+        </SelectedGroupProvider>
+      </AppSettingsContext.Provider>
+    </ThemeProvider>
+  );
 };
 
 export default App;

@@ -18,7 +18,6 @@ const zendeskEvents = [
 
 const useZendesk = (callback: any) => {
   let client: ZendeskClient = null;
-  //let timer: NodeJS.Timer;
   let timer = 0;
   const timerInterval = 30000;
   const [currentUser, setCurrentUser] = useState<Types.User | null>(null);
@@ -32,7 +31,6 @@ const useZendesk = (callback: any) => {
     if (!client) {
       client = ZAFClient.init();
     }
-    getAppMetaData();
     getCurrentUser();
     startListening(callback);
     getGroups();
@@ -43,12 +41,6 @@ const useZendesk = (callback: any) => {
       clearInterval(timer);
     };
   }, []);
-
-  const getAppMetaData = () => {
-    client.metadata().then(function (metadata: any) {
-      console.log(metadata.settings);
-    });
-  };
 
   const getCurrentUser = async () => {
     const getAllAgentsPath = '/api/v2/users/me.json';
@@ -92,9 +84,7 @@ const useZendesk = (callback: any) => {
       };
       const response = await client.request(settings);
       setGroups(() => response.groups);
-    } catch (err) {
-      console.error('Error getting groups', err);
-    }
+    } catch (err) {}
   };
 
   const getUsers = async (): Promise<any> => {
@@ -112,9 +102,7 @@ const useZendesk = (callback: any) => {
       };
       const response = await client.request(settings);
       setUsers(() => response.users);
-    } catch (err) {
-      console.error('Error getting users', err);
-    }
+    } catch (err) {}
   };
 
   // `${status} | ${new Date().toISOString()}`
@@ -144,7 +132,6 @@ const useZendesk = (callback: any) => {
       getUsers();
       return 0;
     } catch (err) {
-      console.error('Error updating user status', err);
       return 1;
     }
   };

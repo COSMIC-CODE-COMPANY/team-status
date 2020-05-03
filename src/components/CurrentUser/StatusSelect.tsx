@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useAppsettingsContext } from '../../context';
 import {
   Dropdown,
   Menu,
   Item,
-  Trigger,
   Field,
-  Label,
   Select,
-  Hint,
 } from '@zendeskgarden/react-dropdowns';
-import { Button } from '@zendeskgarden/react-buttons';
+import { useAppsettingsContext } from '../../context';
 interface Props {
   userID: number;
   selected?: string;
@@ -54,25 +50,11 @@ const StatusSelect = (props: Props) => {
   };
 
   const handleChange = (event: string) => {
-    // const newStatus = event.target.value as string;
     setSelectedStatus(event);
     props.updateStatus(props.userID, event);
   };
 
   return (
-    // <Dropdown onSelect={(status) => handleChange(status)}>
-    //   <Trigger>
-    //     <Button isPrimary>{selectedStatus}</Button>
-    //   </Trigger>
-    //   <Menu>
-    //     {statusList.map((status, index) => (
-    //       <Item value={status} key={status + index.toString()}>
-    //         {status}
-    //       </Item>
-    //     ))}
-    //   </Menu>
-    // </Dropdown>
-
     <Dropdown
       selectedItem={selectedStatus}
       onSelect={(status) => handleChange(status)}

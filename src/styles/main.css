@@ -1,6 +1,30 @@
 @import '@zendeskgarden/css-variables';
 @import '@zendeskgarden/css-utilities';
 @import '@zendeskgarden/css-bedrock';
+html {
+  height: 100%;
+}
 body {
   font-family: var(--zd-font-family-system);
+  height: 100%;
+}
+#app {
+  height: 100%;
+}
+#app > div {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 75px 1fr;
+  align-items: center;
+}
+
+.table-wrapper {
+  height: 215px;
+  overflow-y: auto;
+}
+
+th {
+  background: white;
+  position: sticky;
+  top: 0;
 }

@@ -1,59 +1,74 @@
 import React, { useState, useEffect } from 'react';
-// import { Grid, Box, Container } from '@material-ui/core';
+import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import GroupSelect from './GroupSelect';
 import { StatusCounts, Status } from './StatusCount';
 import MDTable from './AgentTable';
-import { User, Group } from '../../Types';
-
-import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 
 import {
   useAllUsersContext,
   useGroupsContext,
   useSelectedGroupContext,
 } from '../../context';
+import { useAppsettingsContext } from '../../context';
 
-import { statusListMock } from '../../mock/data';
+import { User, Group } from '../../Types';
 
 const AgentSummary = () => {
   const users = useAllUsersContext();
   const groups = useGroupsContext();
+  const appSettings = useAppsettingsContext();
+  const [statusList, setStatusList] = useState<string[]>([
+    'Phone',
+    'Email',
+    'Chat',
+    'Lunch',
+    'Break',
+  ]);
   const [groupList, setGroupList] = useState<Group[]>([]);
   const [formattedUsers, setFormattedUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [statusCounts, setStatusCounts] = useState<Status[]>([]);
   const selectedGroup = useSelectedGroupContext();
+
   useEffect(() => {
-    // console.log('USE EFFECT TRIGGERED FOR: GROUPS', groups)
+    if (
+      appSettings &&
+      appSettings.settings &&
+      appSettings.settings.statusList
+    ) {
+      const defaultStatusList = appSettings.settings.statusList;
+      const statusArray: string[] = defaultStatusList
+        .split(',')
+        .map((item: string) => item.trim());
+      setStatusList(() => statusArray);
+    }
+  }, [appSettings]);
+
+  useEffect(() => {
     if (groups) {
       setGroupList([...groups]);
     }
   }, [groups, selectedGroup]);
 
   useEffect(() => {
-    // console.log('USE EFFECT TRIGGERED FOR: USERS', users)
     formatUsers();
   }, [users]);
 
   useEffect(() => {
-    // console.log('USE EFFECT TRIGGERED FOR: FORMATTED USERS', formattedUsers)
     filterUsers();
   }, [formattedUsers, selectedGroup]);
 
   useEffect(() => {
-    // console.log('USE EFFECT TRIGGERED FOR: FILTERED USERS', filteredUsers)
     getStatusCounts();
   }, [filteredUsers]);
 
   const formatUsers = async () => {
-    // console.log('FORMATTING USERS', users)
     const usersTemp: User[] = [];
     if (users) {
       for (const user of users) {
         let [status, last_update] = user.user_fields.ccc_agent_status
           ? user.user_fields.ccc_agent_status.split('|')
           : ['Unknown', 'Unknown'];
-        // last_update !== 'Unknown' && (last_update = new Date(last_update.trim()).toLocaleTimeString());
         if (last_update && last_update !== 'Unknown') {
           last_update = new Date(last_update.trim()).toLocaleTimeString();
         }
@@ -73,7 +88,6 @@ const AgentSummary = () => {
   };
 
   const filterUsers = async () => {
-    // console.log('FILTERING USERS USERS', filteredUsers)
     let fUsers: User[] = [];
     if (formattedUsers) {
       const selectedGroupString = selectedGroup.selectedGroup;
@@ -95,13 +109,11 @@ const AgentSummary = () => {
   };
 
   const getStatusCounts = async () => {
-    // console.log('GETTING STATUS COUNTS', filteredUsers)
     const statusArr: Status[] = [];
     const tempMap: any = {};
     if (filteredUsers) {
-      for (const status of statusListMock) {
-        const name = status.name.trim();
-        tempMap[name] = 0;
+      for (const status of statusList) {
+        tempMap[status] = 0;
       }
       for (const user of filteredUsers) {
         const status = user.status?.trim() || 'Unknown';
@@ -129,32 +141,11 @@ const AgentSummary = () => {
         </Col>
       </Row>
       <Row>
-        <Col md={6}>
+        <Col>
           <MDTable data={filteredUsers}></MDTable>
         </Col>
       </Row>
     </Grid>
-    // <div>
-    //   {/* <Box>
-    //     <Box mb={5}>
-    //       <Container>
-    //         <Grid container justify='space-between' wrap='nowrap' spacing={5}>
-    //           <Grid item>
-    //             <GroupSelect groups={groupList} filter={filterUsers} />
-    //           </Grid>
-    //           <Grid item>
-    //             <StatusCounts statusCounts={statusCounts} />
-    //           </Grid>
-    //         </Grid>
-    //       </Container>
-    //     </Box>
-    //     <Box flexGrow={1}>
-    //       <Box>
-    //         <MDTable data={filteredUsers}></MDTable>
-    //       </Box>
-    //     </Box>
-    //   </Box> */}
-    // </div>
   );
 };
 
