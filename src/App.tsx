@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext, ReactElement } from 'react';
-import { CssBaseline } from '@material-ui/core';
-import { ThemeProvider, makeStyles } from '@material-ui/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Theme } from './Theme';
 import CurrentUser from './components/CurrentUser/CurrentUser';
 import AgentSummary from './components/AgentSummary/AgentSummary';
 
+// React Themeing
+import { ThemeProvider, DEFAULT_THEME } from '@zendeskgarden/react-theming';
+import { Chrome, Body, Content, Main } from '@zendeskgarden/react-chrome';
+import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import { useZendesk } from './hooks';
+
+import './styles/main.css';
 
 import {
   CurrentUserContext,
@@ -39,30 +41,10 @@ const App = () => {
   };
 
   const zd = useZendesk(handleZendeskEvents);
-  const pref = useMediaQuery('(prefers-color-scheme: dark)');
-  const [themeState, updateThemeState] = useState<ThemeState>({
-    type: undefined,
-  });
-  const [prefersDarkMode, setPrefersDarkMode] = useState(false);
   const [isLoading, updateIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState<User | null>(zd.currentUser);
   const [allUsers, setAllUsers] = useState<User[] | null>(zd.users);
   const [groups, setGroups] = useState<Group[] | null>(zd.groups);
-
-  const updateTheme = (): void => {
-    if (prefersDarkMode) {
-      console.log(`Prefers Dark Mode`);
-      updateThemeState({ type: 'dark' });
-    } else {
-      console.log(`Doesn't prefer Dark Mode`);
-      updateThemeState({ type: 'light' });
-    }
-  };
-
-  useEffect(() => {
-    setPrefersDarkMode(() => pref);
-    updateTheme();
-  }, [pref]);
 
   useEffect(() => {
     setCurrentUser(() => zd.currentUser);
@@ -71,22 +53,38 @@ const App = () => {
   });
 
   let content: ReactElement = <div>Loading...</div>;
+
   if (!isLoading) {
     content = (
-      <ThemeProvider theme={Theme(themeState)}>
-        <CssBaseline />
-        <AppSettingsContext.Provider value={zd.appSettings}>
-          <SelectedGroupProvider>
-            <CurrentUserContext.Provider value={currentUser}>
-              <CurrentUser updateStatus={zd.updateUserStatus} />
-            </CurrentUserContext.Provider>
-            <AllUsersContext.Provider value={allUsers}>
-              <GroupsContext.Provider value={groups}>
-                <AgentSummary />
-              </GroupsContext.Provider>
-            </AllUsersContext.Provider>
-          </SelectedGroupProvider>
-        </AppSettingsContext.Provider>
+      <ThemeProvider theme={DEFAULT_THEME}>
+        <Chrome>
+          <Body>
+            <Content>
+              <AppSettingsContext.Provider value={zd.appSettings}>
+                <SelectedGroupProvider>
+                  <Grid gutters='sm'>
+                    <Row className='u-mv'>
+                      <CurrentUserContext.Provider value={currentUser}>
+                        <Col>
+                          <CurrentUser updateStatus={zd.updateUserStatus} />
+                        </Col>
+                      </CurrentUserContext.Provider>
+                    </Row>
+                    <Row>
+                      <AllUsersContext.Provider value={allUsers}>
+                        <GroupsContext.Provider value={groups}>
+                          <Col>
+                            <AgentSummary />
+                          </Col>
+                        </GroupsContext.Provider>
+                      </AllUsersContext.Provider>
+                    </Row>
+                  </Grid>
+                </SelectedGroupProvider>
+              </AppSettingsContext.Provider>
+            </Content>
+          </Body>
+        </Chrome>
       </ThemeProvider>
     );
   }

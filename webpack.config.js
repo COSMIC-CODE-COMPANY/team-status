@@ -35,21 +35,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.css$/,
         use: [
-          // Creates `style` nodes from JS strings
           'style-loader',
-          // Translates CSS into CommonJS
-          // 'css-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: true,
-            },
-          },
-          // Compiles Sass to CSS
-          'sass-loader',
-        ],
+          'css-loader',
+          'postcss-loader'
+        ]
       },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {

@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import { useAppsettingsContext } from '../../context';
-
+import {
+  Dropdown,
+  Menu,
+  Item,
+  Trigger,
+  Field,
+  Label,
+  Select,
+  Hint,
+} from '@zendeskgarden/react-dropdowns';
+import { Button } from '@zendeskgarden/react-buttons';
 interface Props {
   userID: number;
   selected?: string;
@@ -46,27 +53,41 @@ const StatusSelect = (props: Props) => {
     setStatusList(() => statusArray);
   };
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const newStatus = event.target.value as string;
-    setSelectedStatus(newStatus);
-    props.updateStatus(props.userID, newStatus);
+  const handleChange = (event: string) => {
+    // const newStatus = event.target.value as string;
+    setSelectedStatus(event);
+    props.updateStatus(props.userID, event);
   };
 
   return (
-    <FormControl color='primary' fullWidth>
-      <Select
-        value={selectedStatus}
-        onChange={handleChange}
-        autoWidth
-        variant='outlined'
-      >
+    // <Dropdown onSelect={(status) => handleChange(status)}>
+    //   <Trigger>
+    //     <Button isPrimary>{selectedStatus}</Button>
+    //   </Trigger>
+    //   <Menu>
+    //     {statusList.map((status, index) => (
+    //       <Item value={status} key={status + index.toString()}>
+    //         {status}
+    //       </Item>
+    //     ))}
+    //   </Menu>
+    // </Dropdown>
+
+    <Dropdown
+      selectedItem={selectedStatus}
+      onSelect={(status) => handleChange(status)}
+    >
+      <Field>
+        <Select>{selectedStatus}</Select>
+      </Field>
+      <Menu>
         {statusList.map((status, index) => (
-          <MenuItem value={status} key={status + index.toString()}>
+          <Item value={status} key={status + index.toString()}>
             {status}
-          </MenuItem>
+          </Item>
         ))}
-      </Select>
-    </FormControl>
+      </Menu>
+    </Dropdown>
   );
 };
 

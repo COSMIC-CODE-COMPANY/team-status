@@ -18,7 +18,8 @@ const zendeskEvents = [
 
 const useZendesk = (callback: any) => {
   let client: ZendeskClient = null;
-  let timer: NodeJS.Timer;
+  //let timer: NodeJS.Timer;
+  let timer = 0;
   const timerInterval = 30000;
   const [currentUser, setCurrentUser] = useState<Types.User | null>(null);
   const [groups, setGroups] = useState<Types.Group[] | null>(null);

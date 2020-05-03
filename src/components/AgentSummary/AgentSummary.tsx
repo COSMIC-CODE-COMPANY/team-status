@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Box, Container } from '@material-ui/core';
+// import { Grid, Box, Container } from '@material-ui/core';
 import GroupSelect from './GroupSelect';
 import { StatusCounts, Status } from './StatusCount';
 import MDTable from './AgentTable';
 import { User, Group } from '../../Types';
+
+import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 
 import {
   useAllUsersContext,
@@ -117,25 +119,42 @@ const AgentSummary = () => {
   };
 
   return (
-    <Box>
-      <Box mb={5}>
-        <Container>
-          <Grid container justify='space-between' wrap='nowrap' spacing={5}>
-            <Grid item>
-              <GroupSelect groups={groupList} filter={filterUsers} />
-            </Grid>
-            <Grid item>
-              <StatusCounts statusCounts={statusCounts} />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-      <Box flexGrow={1}>
-        <Box>
+    <Grid>
+      <Row className='u-mv-sm'>
+        <Col sm={3}>
+          <GroupSelect groups={groupList} filter={filterUsers} />
+        </Col>
+        <Col sm={9}>
+          <StatusCounts statusCounts={statusCounts} />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
           <MDTable data={filteredUsers}></MDTable>
-        </Box>
-      </Box>
-    </Box>
+        </Col>
+      </Row>
+    </Grid>
+    // <div>
+    //   {/* <Box>
+    //     <Box mb={5}>
+    //       <Container>
+    //         <Grid container justify='space-between' wrap='nowrap' spacing={5}>
+    //           <Grid item>
+    //             <GroupSelect groups={groupList} filter={filterUsers} />
+    //           </Grid>
+    //           <Grid item>
+    //             <StatusCounts statusCounts={statusCounts} />
+    //           </Grid>
+    //         </Grid>
+    //       </Container>
+    //     </Box>
+    //     <Box flexGrow={1}>
+    //       <Box>
+    //         <MDTable data={filteredUsers}></MDTable>
+    //       </Box>
+    //     </Box>
+    //   </Box> */}
+    // </div>
   );
 };
 

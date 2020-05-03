@@ -1,9 +1,20 @@
 import React from 'react';
 import { Group } from '../../Types';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+// import FormControl from '@material-ui/core/FormControl';
+// import Select from '@material-ui/core/Select';
+// import MenuItem from '@material-ui/core/MenuItem';
 import { useSelectedGroupContext } from '../../context';
+import { Button } from '@zendeskgarden/react-buttons';
+import {
+  Dropdown,
+  Menu,
+  Item,
+  Trigger,
+  Field,
+  Label,
+  Select,
+  Hint,
+} from '@zendeskgarden/react-dropdowns';
 
 interface Props {
   selected?: string | number;
@@ -28,9 +39,10 @@ const GroupSelect = (props: Props) => {
   const selectedGroup = useSelectedGroupContext();
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const value = event.target.value as string;
-    selectedGroup.updateSelectedGroup(value);
-    props.filter(value);
+    // console.log(event);
+    // const value = event.target.value as string;
+    selectedGroup.updateSelectedGroup(event);
+    props.filter(event);
   };
 
   const addAllGroup = (groups: Group[]): Group[] => {
@@ -49,18 +61,54 @@ const GroupSelect = (props: Props) => {
   };
 
   return (
-    <FormControl fullWidth size='small'>
-      <Select
-        value={selectedGroup.selectedGroup || 'All Groups'}
-        onChange={handleChange}
-      >
+    // <form>
+    //   <Field>
+    //     <Dropdown onSelect={(value) => handleChange(value)}>
+    //       <Trigger>
+    //         <Button>{selectedGroup.selectedGroup || 'All Groups'}</Button>
+    //       </Trigger>
+    //       <Menu>
+    //         {addAllGroup(props.groups).map((group) => (
+    //           <Item value={group.name} key={group.id}>
+    //             {group.name}
+    //           </Item>
+    //         ))}
+    //       </Menu>
+    //     </Dropdown>
+    //   </Field>
+    // </form>
+
+    <Dropdown
+      selectedItem={selectedGroup.selectedGroup || 'All Groups'}
+      onSelect={(value) => handleChange(value)}
+    >
+      <Field>
+        <Select isCompact>{selectedGroup.selectedGroup || 'All Groups'}</Select>
+      </Field>
+      <Menu>
         {addAllGroup(props.groups).map((group) => (
-          <MenuItem value={group.name} key={group.id}>
+          <Item value={group.name} key={group.id}>
             {group.name}
-          </MenuItem>
+          </Item>
         ))}
-      </Select>
-    </FormControl>
+      </Menu>
+    </Dropdown>
+
+    // <div>
+
+    //   {/* <FormControl fullWidth size='small'>
+    //     <Select
+    //       value={selectedGroup.selectedGroup || 'All Groups'}
+    //       onChange={handleChange}
+    //     >
+    //       {addAllGroup(props.groups).map((group) => (
+    //         <MenuItem value={group.name} key={group.id}>
+    //           {group.name}
+    //         </MenuItem>
+    //       ))}
+    //     </Select>
+    //   </FormControl> */}
+    // </div>
   );
 };
 

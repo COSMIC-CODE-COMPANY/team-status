@@ -1,0 +1,6 @@
+@import '@zendeskgarden/css-variables';
+@import '@zendeskgarden/css-utilities';
+@import '@zendeskgarden/css-bedrock';
+body {
+  font-family: var(--zd-font-family-system);
+}
