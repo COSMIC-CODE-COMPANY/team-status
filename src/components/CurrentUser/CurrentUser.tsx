@@ -1,15 +1,20 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
-import { XL } from '@zendeskgarden/react-typography';
+import { XL, LG } from '@zendeskgarden/react-typography';
 import StatusSelect from './StatusSelect';
-import { CurrentUserContext } from '../../context';
 
+import { useZendeskContext } from '../../context';
+
+import * as Types from '../../Types';
 interface Props {
-  updateStatus: any;
+  updateStatus?: any;
+  zendeskContext?: Types.Zendesk;
 }
 
-const CurrentUser = ({ updateStatus }: Props) => {
-  const user = useContext(CurrentUserContext);
+const CurrentUser = (props: Props) => {
+  // const user = useContext(CurrentUserContext);
+  const user = useZendeskContext().currentUser;
+  // const user = props.zendeskContext.currentUser;
   const [userStatus, setUserStatus] = useState('');
 
   useEffect(() => {
@@ -19,6 +24,7 @@ const CurrentUser = ({ updateStatus }: Props) => {
         .shift()
         ?.trim();
       if (status) {
+        console.log('Updating user status', user, status);
         setUserStatus((prevState) => status);
       }
     }
@@ -26,17 +32,20 @@ const CurrentUser = ({ updateStatus }: Props) => {
 
   return (
     <Grid>
-      <Row alignItems='center' justifyContent='between'>
-        <Col sm={4}>
-          <XL>My Status:</XL>
+      <Row alignItems='center' justifyContent='start'>
+        <Col sm={2}>
+          <LG>My Status:</LG>
         </Col>
-        {userStatus && (
-          <StatusSelect
-            selected={userStatus}
-            userID={user?.id || 0}
-            updateStatus={updateStatus}
-          />
-        )}
+        <Col sm={3}>
+          {userStatus && (
+            <StatusSelect
+              selected={userStatus}
+              userID={user?.id || 0}
+              updateStatus={props.updateStatus}
+            />
+          )}
+        </Col>
+        <Col sm={6}></Col>
       </Row>
     </Grid>
   );

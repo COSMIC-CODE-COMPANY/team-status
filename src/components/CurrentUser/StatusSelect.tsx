@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Dropdown,
-  Menu,
-  Item,
-  Field,
-  Select,
-} from '@zendeskgarden/react-dropdowns';
-import { useAppsettingsContext } from '../../context';
+import { Button } from '@zendeskgarden/react-buttons';
+import { Dropdown, Menu, Item, Trigger } from '@zendeskgarden/react-dropdowns';
+import { useZendeskContext } from '../../context';
 interface Props {
   userID: number;
   selected?: string;
@@ -14,7 +9,8 @@ interface Props {
 }
 
 const StatusSelect = (props: Props) => {
-  const appSettings = useAppsettingsContext();
+  const zd = useZendeskContext();
+  const appSettings = useZendeskContext().appSettings;
   const [selectedStatus, setSelectedStatus] = useState(props.selected);
   const [statusList, setStatusList] = useState<string[]>([
     'Phone',
@@ -25,11 +21,18 @@ const StatusSelect = (props: Props) => {
   ]);
 
   useEffect(() => {
+    if (props.selected) {
+      setSelectedStatus(() => props.selected);
+    }
+  }, [props]);
+
+  useEffect(() => {
     if (
       appSettings &&
       appSettings.settings &&
       appSettings.settings.statusList
     ) {
+      console.log('Updating user value', props);
       setDefaultValues();
     }
   }, [appSettings]);
@@ -50,19 +53,19 @@ const StatusSelect = (props: Props) => {
   };
 
   const handleChange = (event: string) => {
+    console.log('CAPTURED STATUS CHANGE', event);
     setSelectedStatus(event);
-    props.updateStatus(props.userID, event);
+    zd.update(event);
   };
 
   return (
-    <Dropdown
-      selectedItem={selectedStatus}
-      onSelect={(status) => handleChange(status)}
-    >
-      <Field>
-        <Select>{selectedStatus}</Select>
-      </Field>
-      <Menu>
+    <Dropdown onSelect={(status) => handleChange(status)}>
+      <Trigger>
+        <Button size='medium' isStretched>
+          {selectedStatus}
+        </Button>
+      </Trigger>
+      <Menu placement='auto' hasArrow>
         {statusList.map((status, index) => (
           <Item value={status} key={status + index.toString()}>
             {status}

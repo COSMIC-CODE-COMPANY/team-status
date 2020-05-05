@@ -14,14 +14,17 @@ export interface User {
   id: number;
   name: string;
   status?: string;
-  last_update?: Date | string | null;
-  last_logon?: Date | string | null;
+  last_update?: string | null;
+  last_logon?: string | null;
   user_fields?: {
     ccc_agent_status?: string;
-  }
+  };
 }
 
-export type ThemeType = 'light' | 'dark' | undefined;
-export interface ThemeState {
-  type: ThemeType;
+export interface Zendesk {
+  appSettings: any | null;
+  currentUser: User | null;
+  groups: Group[] | null;
+  allUsers: any | null;
+  update: any | null;
 }

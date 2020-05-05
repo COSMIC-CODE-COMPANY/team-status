@@ -1,2 +1,3 @@
-export * from './useToggle'
-export * from './useZendesk'
+export * from './useToggle';
+export * from './useDateHelper';
+export * from './useZendesk';

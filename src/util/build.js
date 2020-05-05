@@ -16,8 +16,8 @@ const manifestSettings = {
       top_bar: {
         url: 'assets/app/index.html',
         size: {
-          height: '400px',
-          width: '650px',
+          height: '500px',
+          width: '725px',
         },
       },
     },

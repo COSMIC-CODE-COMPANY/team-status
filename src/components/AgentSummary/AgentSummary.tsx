@@ -4,19 +4,18 @@ import GroupSelect from './GroupSelect';
 import { StatusCounts, Status } from './StatusCount';
 import MDTable from './AgentTable';
 
-import {
-  useAllUsersContext,
-  useGroupsContext,
-  useSelectedGroupContext,
-} from '../../context';
-import { useAppsettingsContext } from '../../context';
+import { useSelectedGroupContext, useZendeskContext } from '../../context';
 
-import { User, Group } from '../../Types';
+import { User, Group, Zendesk } from '../../Types';
 
-const AgentSummary = () => {
-  const users = useAllUsersContext();
-  const groups = useGroupsContext();
-  const appSettings = useAppsettingsContext();
+interface Props {
+  zendeskContext?: Zendesk;
+}
+
+const AgentSummary = (props: Props) => {
+  const users = useZendeskContext().allUsers;
+  const groups = useZendeskContext().groups;
+  const appSettings = useZendeskContext().appSettings;
   const [statusList, setStatusList] = useState<string[]>([
     'Phone',
     'Email',
@@ -66,12 +65,9 @@ const AgentSummary = () => {
     const usersTemp: User[] = [];
     if (users) {
       for (const user of users) {
-        let [status, last_update] = user.user_fields.ccc_agent_status
+        let [status, last_update] = user.user_fields?.ccc_agent_status
           ? user.user_fields.ccc_agent_status.split('|')
           : ['Unknown', 'Unknown'];
-        if (last_update && last_update !== 'Unknown') {
-          last_update = new Date(last_update.trim()).toLocaleTimeString();
-        }
 
         usersTemp.push({
           id: user.id,
@@ -79,7 +75,7 @@ const AgentSummary = () => {
           status: status,
           last_update: last_update,
           last_logon: user.last_login_at
-            ? new Date(user.last_login_at.trim()).toLocaleTimeString()
+            ? new Date(user.last_login_at.trim()).toUTCString()
             : 'Unknown',
         });
       }
