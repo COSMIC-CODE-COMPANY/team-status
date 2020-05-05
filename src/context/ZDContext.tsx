@@ -78,22 +78,18 @@ export const ZendeskContextProvider2 = ({ children }: Props) => {
   };
 
   const update = async () => {
-    getAppSettings(client).then((settings) => {
-      console.log('GOT APP SETTINGS', settings);
-      setAppSettings(() => settings);
-    });
-    getCurrentUser(client).then((user) => {
-      console.log('GOT CURRENT USER', user);
-      setCurrentUser(() => user);
-    });
-    getGroups(client).then((groups) => {
-      console.log('GOT GROUPS', groups);
-      setGroups(() => groups);
-    });
-    getUsers(client).then((users) => {
-      console.log('GOT AGENTS', users);
-      setAllUsers(() => users);
-    });
+    const settings = await getAppSettings(client);
+    setAppSettings(() => settings);
+
+    const user = await getCurrentUser(client);
+    setCurrentUser(() => user);
+
+    const groups = await getGroups(client);
+    setGroups(() => groups);
+
+    const users = await getUsers(client);
+    setAllUsers(() => users);
+
     return true;
   };
 
@@ -101,7 +97,9 @@ export const ZendeskContextProvider2 = ({ children }: Props) => {
     console.log('UPDATING USER:', currentUser.id, event);
     if (currentUser && currentUser?.id) {
       await updateUserStatus(client, currentUser.id, event);
-      update();
+      // update();
+      const users = await getUsers(client);
+      setAllUsers(() => users);
     }
   };
 

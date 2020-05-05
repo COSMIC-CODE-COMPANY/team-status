@@ -21,18 +21,11 @@ const StatusSelect = (props: Props) => {
   ]);
 
   useEffect(() => {
-    if (props.selected) {
-      setSelectedStatus(() => props.selected);
-    }
-  }, [props]);
-
-  useEffect(() => {
     if (
       appSettings &&
       appSettings.settings &&
       appSettings.settings.statusList
     ) {
-      console.log('Updating user value', props);
       setDefaultValues();
     }
   }, [appSettings]);
