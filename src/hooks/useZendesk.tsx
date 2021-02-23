@@ -18,7 +18,6 @@ const updateUserStatus = async (
   status: string
 ) => {
   try {
-    console.log(`Updating user ${userID} with:`, status);
     const userPath = `/api/v2/users/${userID}.json`;
     const userUpdateObject = {
       user: {
@@ -35,18 +34,14 @@ const updateUserStatus = async (
     };
     const response = await client.request(settings);
     return response;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 };
 
 const getAppSettings = async (client: ZendeskClient) => {
   try {
     const data = await client.metadata();
     return data;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 };
 
 const getCurrentUser = async (client: ZendeskClient) => {
@@ -59,9 +54,7 @@ const getCurrentUser = async (client: ZendeskClient) => {
     };
     const response = await client.request(settings);
     return response.user;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 };
 
 const getGroups = async (client: ZendeskClient) => {
@@ -74,9 +67,7 @@ const getGroups = async (client: ZendeskClient) => {
     };
     const response = await client.request(settings);
     return response.groups;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 };
 
 const getUsers = async (client: ZendeskClient, group?: number) => {
@@ -95,9 +86,7 @@ const getUsers = async (client: ZendeskClient, group?: number) => {
     };
     const response = await client.request(settings);
     return response.users;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 };
 
 const startEventListeners = async (client: ZendeskClient, callback: any) => {

@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
-import { XL, LG } from '@zendeskgarden/react-typography';
+import { LG } from '@zendeskgarden/react-typography';
 import StatusSelect from './StatusSelect';
 
 import { useZendeskContext } from '../../context';
@@ -12,21 +12,15 @@ interface Props {
 }
 
 const CurrentUser = (props: Props) => {
-  // const user = useContext(CurrentUserContext);
   const user = useZendeskContext().currentUser;
-  // const user = props.zendeskContext.currentUser;
   const [userStatus, setUserStatus] = useState('');
 
   useEffect(() => {
-    if (user && user.user_fields && user.user_fields.ccc_agent_status) {
-      const status = user.user_fields.ccc_agent_status
-        .split('|')
-        .shift()
-        ?.trim();
-      if (status) {
-        console.log('Updating user status', user, status);
-        setUserStatus((prevState) => status);
-      }
+    if (user) {
+      const status =
+        user?.user_fields?.ccc_agent_status?.split('|').shift()?.trim() ||
+        'Unknown';
+      setUserStatus((prevState) => status);
     }
   }, [user]);
 

@@ -26,11 +26,11 @@ const manifestSettings = {
   frameworkVersion: '2.0',
   "parameters": [
     {
-      "name": "statusList",
+      "name": "Status List",
       "type": "text",
       "required": true,
       "secure": false,
-      "default": "Chat, Email, Phone, Break, Lunch",
+      "default": "Chat, Email, Phone, Break, Lunch, Offline",
       "helpText": "Customize your status list"
     },
   ]

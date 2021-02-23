@@ -1,29 +1,44 @@
 const useDateHelper = () => {
   const getMinutesSince = (date: string) => {
+    const currentTime = new Date();
     const d = new Date(date.trim());
 
     if (d.toString() === 'Invalid Date') {
       return 'Unknown';
     }
-    const currentTime = new Date();
-    const diff = Math.abs(d.getTime() - currentTime.getTime());
-    const diffDays = Math.floor(diff / 86400000);
-    const diffHrs = Math.floor((diff % 86400000) / 3600000);
-    const diffMins = Math.round(((diff % 86400000) % 3600000) / 60000);
 
-    if (diffDays > 0) {
-      return d.toLocaleString();
+    const rtf1 = new Intl.RelativeTimeFormat('en', {
+      style: 'long',
+      numeric: 'auto',
+    });
+
+    const diff = d.getTime() - currentTime.getTime();
+    const diffDays = getZeroFloor(diff / 86400000);
+    const diffHrs = getZeroFloor((diff % 86400000) / 3600000);
+    const diffMins = getZeroFloor(((diff % 86400000) % 3600000) / 60000);
+    const diffSeconds = getZeroFloor(
+      ((diff % 86400000) % 3600000) / 60000 / 60
+    );
+
+    if (diffDays !== 0) {
+      return rtf1.format(diffDays, 'days');
     }
-    if (diffHrs > 0) {
-      const str = `about ${diffHrs.toString()} ${
-        diffHrs < 1 ? 'hours' : 'hour'
-      } ago`;
-      return str;
+    if (diffHrs !== 0) {
+      return rtf1.format(diffHrs, 'hours');
     }
-    if (diffMins < 1) {
-      return `Just now`;
+
+    if (diffMins !== 0) {
+      return rtf1.format(diffMins, 'minutes');
     }
-    return `${diffMins.toString()} ${diffMins > 1 ? 'minutes' : 'minute'} ago`;
+
+    return rtf1.format(diffSeconds, 'seconds');
+  };
+
+  const getZeroFloor = (input: number): number => {
+    if (input < 1 && input > -1) {
+      return 0;
+    }
+    return Math.floor(input);
   };
 
   const getLocalDateString = (date: string) => {

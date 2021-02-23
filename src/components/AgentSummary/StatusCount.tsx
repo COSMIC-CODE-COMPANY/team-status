@@ -22,17 +22,29 @@ export function StatusCounts(props: Props) {
   const sorter = () => {};
 
   return (
-    <Grid gutters='xxs'>
-      <Row wrap='wrap' className='u-display-flex'>
+    <Grid gutters={'xxs'}>
+      <Row wrap='wrap' justifyContent={'start'}>
         {sortedList.map((statusCount) => (
           <Col key={statusCount.name + statusCount.count} sm={3}>
             <Tag
-              hue={statusCount.count ? 'kale' : 'grey'}
+              hue={
+                statusCount.name === 'Offline'
+                  ? 'grey'
+                  : statusCount.count
+                  ? 'fuschia'
+                  : 'grey'
+              }
               size='large'
               className='u-2/2 u-mb-xxs'
             >
-              <div>{statusCount.name}</div>
-              <div className='u-ta-right'>{statusCount.count}</div>
+              <Row wrap='nowrap'>
+                <Col>
+                  {statusCount.name.length > 15
+                    ? `${statusCount.name.substring(0, 10)}...`
+                    : statusCount.name}
+                </Col>
+                <Col className='u-ta-right'>{statusCount.count}</Col>
+              </Row>
             </Tag>
           </Col>
         ))}

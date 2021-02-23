@@ -28,7 +28,7 @@ export const ZendeskContext = createContext<Types.Zendesk>({
 const client: ZendeskClient = ZAFClient.init();
 const updateInterval = 30000;
 
-export const ZendeskContextProvider2 = ({ children }: Props) => {
+export const ZendeskContextProvider = ({ children }: Props) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [groups, setGroups] = useState(null);
   const [allUsers, setAllUsers] = useState(null);
@@ -46,17 +46,13 @@ export const ZendeskContextProvider2 = ({ children }: Props) => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log('IS OPEN', isOpen);
-  }, [isOpen]);
+  useEffect(() => {}, [isOpen]);
 
   const updater = () => {
-    console.log('TICK TOCK GOES THE CLOCK');
     update();
   };
 
   const handleZendeskEvents = (event: Event) => {
-    console.log('ZENDESK EVENT:', event);
     switch (event.type) {
       case 'app.registered':
       case 'pane.activated':
@@ -94,8 +90,7 @@ export const ZendeskContextProvider2 = ({ children }: Props) => {
   };
 
   const updateUser = async (event: any) => {
-    console.log('UPDATING USER:', currentUser.id, event);
-    if (currentUser && currentUser?.id) {
+    if (currentUser?.id) {
       await updateUserStatus(client, currentUser.id, event);
       // update();
       const users = await getUsers(client);

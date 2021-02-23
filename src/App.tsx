@@ -3,18 +3,18 @@ import { ThemeProvider, DEFAULT_THEME } from '@zendeskgarden/react-theming';
 import CurrentUser from './components/CurrentUser/CurrentUser';
 import AgentSummary from './components/AgentSummary/AgentSummary';
 import { SelectedGroupProvider } from './context';
-import { ZendeskContextProvider2 } from './context/ZDContext';
+import { ZendeskContextProvider } from './context/ZDContext';
 import './styles/main.css';
 
 const App = () => {
   return (
     <ThemeProvider theme={DEFAULT_THEME}>
-      <ZendeskContextProvider2>
+      <ZendeskContextProvider>
         <SelectedGroupProvider>
           <CurrentUser />
           <AgentSummary />
         </SelectedGroupProvider>
-      </ZendeskContextProvider2>
+      </ZendeskContextProvider>
     </ThemeProvider>
   );
 };

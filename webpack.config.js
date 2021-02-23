@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: DIST_DIR + '/assets/app',
     filename: 'bundle.js',
-    // publicPath: './',  // USE THIS FOR ZENDESK DEPLOYMENTS
+    publicPath: './',  // USE THIS FOR ZENDESK DEPLOYMENTS
   },
 
   // Enable sourcemaps for debugging webpack's output.

@@ -18,6 +18,7 @@ const StatusSelect = (props: Props) => {
     'Chat',
     'Lunch',
     'Break',
+    'Offline',
   ]);
 
   useEffect(() => {
@@ -31,7 +32,9 @@ const StatusSelect = (props: Props) => {
   }, [appSettings]);
 
   const setDefaultValues = () => {
+    // Get default values for dropdown
     const defaultStatusList = appSettings.settings.statusList;
+
     const statusArray: string[] = defaultStatusList
       .split(',')
       .map((item: string) => item.trim());
@@ -46,7 +49,6 @@ const StatusSelect = (props: Props) => {
   };
 
   const handleChange = (event: string) => {
-    console.log('CAPTURED STATUS CHANGE', event);
     setSelectedStatus(event);
     zd.update(event);
   };
@@ -55,7 +57,7 @@ const StatusSelect = (props: Props) => {
     <Dropdown onSelect={(status) => handleChange(status)}>
       <Trigger>
         <Button size='medium' isStretched>
-          {selectedStatus}
+          {selectedStatus || 'Unknown'}
         </Button>
       </Trigger>
       <Menu placement='auto' hasArrow>

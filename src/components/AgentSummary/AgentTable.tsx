@@ -38,7 +38,11 @@ const AgentTable = (props: Props) => {
           {sortedUsers.map((data) => (
             <Row key={data.id}>
               <Cell>{data.name}</Cell>
-              <Cell>{data.status}</Cell>
+              <Cell>
+                {data.status && data.status.length > 15
+                  ? `${data.status.substring(0, 15)}...`
+                  : data.status}
+              </Cell>
               <Cell className='cursor-default'>
                 <Tooltip
                   hasArrow
