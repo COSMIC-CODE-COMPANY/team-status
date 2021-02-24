@@ -25,7 +25,7 @@ const StatusSelect = (props: Props) => {
     if (
       appSettings &&
       appSettings.settings &&
-      appSettings.settings.statusList
+      appSettings.settings.Status_List
     ) {
       setDefaultValues();
     }
@@ -33,7 +33,7 @@ const StatusSelect = (props: Props) => {
 
   const setDefaultValues = () => {
     // Get default values for dropdown
-    const defaultStatusList = appSettings.settings.statusList;
+    const defaultStatusList = appSettings.settings.Status_List;
 
     const statusArray: string[] = defaultStatusList
       .split(',')

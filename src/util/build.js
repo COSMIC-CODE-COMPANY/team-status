@@ -26,12 +26,20 @@ const manifestSettings = {
   frameworkVersion: '2.0',
   "parameters": [
     {
-      "name": "Status List",
+      "name": "Status_List",
       "type": "text",
       "required": true,
       "secure": false,
       "default": "Chat, Email, Phone, Break, Lunch, Offline",
       "helpText": "Customize your status list"
+    },
+    {
+      "name": "Active_Color",
+      "type": "text",
+      "required": false,
+      "secure": false,
+      "default": "blue",
+      "helpText": "Choose a supported Zendesk Garden color"
     },
   ]
 };

@@ -5,7 +5,7 @@ import { StatusCounts, Status } from './StatusCount';
 import MDTable from './AgentTable';
 
 import { useSelectedGroupContext, useZendeskContext } from '../../context';
-
+import { useAppsettings } from '../../context/appContext';
 import { User, Group, Zendesk } from '../../Types';
 
 interface Props {
@@ -16,6 +16,7 @@ const AgentSummary = (props: Props) => {
   const users = useZendeskContext().allUsers;
   const groups = useZendeskContext().groups;
   const appSettings = useZendeskContext().appSettings;
+
   const [statusList, setStatusList] = useState<string[]>([
     'Phone',
     'Email',

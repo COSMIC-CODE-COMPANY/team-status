@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import { Tag } from '@zendeskgarden/react-tags';
+import { useAppsettings } from '../../context';
 export interface Status {
   name: string;
   count: number;
@@ -11,6 +12,7 @@ interface Props {
 
 export function StatusCounts(props: Props) {
   const [sortedList, setSortedList] = useState<Status[]>([]);
+  const settings = useAppsettings();
 
   useEffect(() => {
     const temp = props.statusCounts.sort((a, b) =>
@@ -19,8 +21,6 @@ export function StatusCounts(props: Props) {
     setSortedList(() => temp);
   }, [props.statusCounts]);
 
-  const sorter = () => {};
-
   return (
     <Grid gutters={'xxs'}>
       <Row wrap='wrap' justifyContent={'start'}>
@@ -28,10 +28,10 @@ export function StatusCounts(props: Props) {
           <Col key={statusCount.name + statusCount.count} sm={3}>
             <Tag
               hue={
-                statusCount.name === 'Offline'
+                statusCount.name === 'Offline' || statusCount.name === 'Unknown'
                   ? 'grey'
                   : statusCount.count
-                  ? 'fuschia'
+                  ? settings?.color
                   : 'grey'
               }
               size='large'
