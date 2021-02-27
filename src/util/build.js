@@ -3,7 +3,7 @@
 // https://developer.zendesk.com/apps/docs/developer-guide/setup#file-requirements
 
 const manifestSettings = {
-  name: 'Status Tracker: A status app',
+  name: 'Team Status',
   author: {
     name: 'Cosmic Code Company',
     email: 'support@cosmiccode.co',
@@ -56,9 +56,9 @@ const requirements = {
 
 const enSettings = {
   app: {
-    name: 'Status Tracker: A status app',
-    short_description: '',
-    long_description: '',
+    name: 'Team Status',
+    short_description: 'Quickly see the status of everyone on your team',
+    long_description: 'Team Status allows Zendesk agents to set their current status right inside of Zendesk. Everyone can view the status of the entire team with one click.',
     installation_instructions: '',
     parameters: {},
   },

@@ -89,12 +89,14 @@ export const ZendeskContextProvider = ({ children }: Props) => {
     return true;
   };
 
-  const updateUser = async (event: any) => {
-    if (currentUser?.id) {
-      await updateUserStatus(client, currentUser.id, event);
-      // update();
+  const updateUser = async (event: any, user?: number) => {
+    const cUser = user || currentUser.id || null;
+    if (cUser) {
+      await updateUserStatus(client, cUser, event);
       const users = await getUsers(client);
+      const user = await getCurrentUser(client);
       setAllUsers(() => users);
+      setCurrentUser(() => user);
     }
   };
 

@@ -19,6 +19,7 @@ export interface User {
   user_fields?: {
     ccc_agent_status?: string;
   };
+  role?: 'admin' | 'end-user' | 'agent';
 }
 
 export interface Zendesk {

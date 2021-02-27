@@ -56,6 +56,7 @@
     "@zendeskgarden/react-dropdowns": "^8.7.0",
     "@zendeskgarden/react-forms": "^8.7.0",
     "@zendeskgarden/react-grid": "^8.7.0",
+    "@zendeskgarden/react-loaders": "^8.32.1",
     "@zendeskgarden/react-tables": "^8.7.0",
     "@zendeskgarden/react-tags": "^8.7.0",
     "@zendeskgarden/react-theming": "^8.7.0",
