@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import { LG } from '@zendeskgarden/react-typography';
+import { Skeleton } from '@zendeskgarden/react-loaders';
 import StatusSelect from './StatusSelect';
 
 import { useZendeskContext } from '../../context';
@@ -13,6 +14,7 @@ interface Props {
 
 const CurrentUser = (props: Props) => {
   const user = useZendeskContext().currentUser;
+  const [loading, setLoading] = useState(true);
   const [userStatus, setUserStatus] = useState('');
 
   useEffect(() => {
@@ -20,25 +22,29 @@ const CurrentUser = (props: Props) => {
       const status =
         user?.user_fields?.ccc_agent_status?.split('|').shift()?.trim() ||
         'Unknown';
-      setUserStatus((prevState) => status);
+      setUserStatus(status);
+      setLoading(() => false);
     }
   }, [user]);
 
   return (
-    <Grid>
+    <Grid className='current-user'>
       <Row alignItems='center' justifyContent='start'>
         <Col sm={2}>
           <LG>My Status:</LG>
         </Col>
-        <Col sm={3}>
-          {userStatus && (
-            <StatusSelect
-              selected={userStatus}
-              userID={user?.id || 0}
-              updateStatus={props.updateStatus}
-            />
-          )}
-        </Col>
+        {loading && <Skeleton width={'150px'} height={'25px'} />}
+        {!loading && (
+          <Col sm={3}>
+            {userStatus && (
+              <StatusSelect
+                selected={userStatus}
+                userID={user?.id || 0}
+                updateStatus={props.updateStatus}
+              />
+            )}
+          </Col>
+        )}
         <Col sm={6}></Col>
       </Row>
     </Grid>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeProvider, DEFAULT_THEME } from '@zendeskgarden/react-theming';
+
 import CurrentUser from './components/CurrentUser/CurrentUser';
 import AgentSummary from './components/AgentSummary/AgentSummary';
 import { SelectedGroupProvider } from './context';

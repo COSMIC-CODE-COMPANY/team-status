@@ -51,6 +51,7 @@ const getCurrentUser = async (client: ZendeskClient) => {
       url: path,
       type: 'GET',
       dataType: 'json',
+      cache: false,
     };
     const response = await client.request(settings);
     return response.user;
@@ -64,6 +65,7 @@ const getGroups = async (client: ZendeskClient) => {
       url: path,
       type: 'GET',
       dataType: 'json',
+      cache: false,
     };
     const response = await client.request(settings);
     return response.groups;
@@ -83,6 +85,7 @@ const getUsers = async (client: ZendeskClient, group?: number) => {
       url: path,
       type: 'GET',
       dataType: 'json',
+      cache: false,
     };
     const response = await client.request(settings);
     return response.users;

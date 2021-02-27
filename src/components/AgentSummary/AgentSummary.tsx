@@ -7,6 +7,7 @@ import MDTable from './AgentTable';
 import { useSelectedGroupContext, useZendeskContext } from '../../context';
 import { useAppsettings } from '../../context/appContext';
 import { User, Group, Zendesk } from '../../Types';
+import { Skeleton } from '@zendeskgarden/react-loaders';
 
 interface Props {
   zendeskContext?: Zendesk;
@@ -16,7 +17,6 @@ const AgentSummary = (props: Props) => {
   const users = useZendeskContext().allUsers;
   const groups = useZendeskContext().groups;
   const appSettings = useZendeskContext().appSettings;
-
   const [statusList, setStatusList] = useState<string[]>([
     'Phone',
     'Email',
@@ -29,6 +29,8 @@ const AgentSummary = (props: Props) => {
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [statusCounts, setStatusCounts] = useState<Status[]>([]);
   const selectedGroup = useSelectedGroupContext();
+  const [loading, setLoading] = useState(true);
+  const dummy = [1, 2, 3, 4, 5, 6];
 
   useEffect(() => {
     if (
@@ -61,6 +63,12 @@ const AgentSummary = (props: Props) => {
   useEffect(() => {
     getStatusCounts();
   }, [filteredUsers]);
+
+  useEffect(() => {
+    if (groups?.length && filteredUsers.length) {
+      setLoading(() => false);
+    }
+  }, [groups, filteredUsers]);
 
   const formatUsers = async () => {
     const usersTemp: User[] = [];
@@ -131,15 +139,37 @@ const AgentSummary = (props: Props) => {
     <Grid>
       <Row className='u-mv-sm'>
         <Col sm={3}>
-          <GroupSelect groups={groupList} filter={filterUsers} />
+          {loading && <Skeleton width={'150px'} height={'25px'} />}
+          {!loading && <GroupSelect groups={groupList} filter={filterUsers} />}
         </Col>
         <Col sm={9}>
-          <StatusCounts statusCounts={statusCounts} />
+          {loading && (
+            <>
+              {dummy.map((dum) => {
+                return (
+                  <Skeleton
+                    key={dum}
+                    width={'125px'}
+                    height={'28px'}
+                    style={{ marginRight: '4px', marginBottom: '4px' }}
+                  />
+                );
+              })}
+            </>
+          )}
+          {!loading && <StatusCounts statusCounts={statusCounts} />}
         </Col>
       </Row>
       <Row>
         <Col>
-          <MDTable data={filteredUsers}></MDTable>
+          {loading && (
+            <div style={{ marginTop: '2rem' }}>
+              {dummy.map((dum) => {
+                return <Skeleton key={dum} width={'100%'} height={'30px'} />;
+              })}
+            </div>
+          )}
+          {!loading && <MDTable data={filteredUsers}></MDTable>}
         </Col>
       </Row>
     </Grid>
