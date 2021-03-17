@@ -1,5 +1,5 @@
 {
-  "name": "agent-status-tracker",
+  "name": "team-status",
   "version": "1.0.0",
   "description": "App for Zendesk to view status of agents in real-time",
   "main": "index.js",
@@ -15,7 +15,7 @@
     "start": "webpack-dev-server"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gene Henson",
   "license": "ISC",
   "resolutions": {
     "acorn": "npm:acorn-with-stage3"
@@ -45,9 +45,6 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.10",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.49",
     "@zendeskgarden/css-bedrock": "^8.0.0",
     "@zendeskgarden/css-utilities": "^4.5.5",
     "@zendeskgarden/css-variables": "^6.4.5",

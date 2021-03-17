@@ -4,7 +4,7 @@ This is a team status app for Zendesk. It shows the real-time status of everyone
 
 # Build Instructions
 
-There are three build commands that can be used:
+There are three build commands that can be used. One for testing without Zendesk, one for testing in Zendesk dev environment, and one for production.
 
 ## Basic browser testing
 
@@ -47,6 +47,8 @@ You can make a production build with:
 ```
 npm run build:prod
 ```
+
+This will build everything needed to deploy to the Zendesk app store including screenshots, translation files, etc.
 
 Once that is done, you should run the ZAT validation with:
 
