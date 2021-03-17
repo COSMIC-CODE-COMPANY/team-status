@@ -60,7 +60,16 @@ const enSettings = {
     short_description: 'Quickly see the status of everyone on your team',
     long_description: 'Team Status allows Zendesk agents to set their current status right inside of Zendesk. Everyone can view the status of the entire team with one click.',
     installation_instructions: '',
-    parameters: {},
+    "parameters": {
+      "Status_List": {
+        "label": "Status List",
+        "helpText": "Customize your status list. Separate options with a comma."
+      },
+      "Active_Color": {
+        "label": "Active Color",
+        "helpText": "Choose a custom color the status that have 1 or more agents are active. \n\n Available options are: grey, blue, kale, red, green, yellow, fuschia, pink, crimson, orange, lemon, lime, mint, teal, azure, royal, purple."
+      }
+    }
   },
 };
 
