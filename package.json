@@ -1,7 +1,7 @@
 {
-  "name": "status-tracker",
+  "name": "agent-status-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "App for Zendesk to view status of agents in real-time",
   "main": "index.js",
   "scripts": {
     "clean": "rm -r dist",

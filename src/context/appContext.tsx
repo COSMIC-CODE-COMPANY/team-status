@@ -51,7 +51,6 @@ export const AppSettingsProvider = ({ children }: Props) => {
 
   const changeActiveColor = (newColor: string): void => {
     if (colors.includes(newColor.toLowerCase())) {
-      console.log(`the color is ${newColor}`);
       setColor(() => newColor);
     } else {
       setColor(() => 'blue');
