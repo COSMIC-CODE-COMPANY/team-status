@@ -1,6 +1,6 @@
 # Agent status tracking right inside of Zendesk
 
-In a world where we're all working remotely, it can be hard for customer service agents and managers to keep track of who is available and who is not.
+In a world with more people working remotely, it can be hard for customer service agents and managers to keep track of who is available and who is not.
 
 The Team Status app gives you immediate insight into your teams status right inside of the tool that you're already using.
 
