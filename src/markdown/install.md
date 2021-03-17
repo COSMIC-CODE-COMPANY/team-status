@@ -21,7 +21,7 @@ You can modify the active color using any of Zendesk's theme colors (https://zen
 - grey
 - blue
 - kale
-- read
+- red
 - green
 - yellow
 - fuschia
