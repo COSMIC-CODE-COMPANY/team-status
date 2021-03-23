@@ -24,6 +24,7 @@ const manifestSettings = {
   },
   version: '1.0',
   frameworkVersion: '2.0',
+  "termsConditionsURL": "https://cosmiccode.co/team-status/terms",
   "parameters": [
     {
       "name": "Status_List",
